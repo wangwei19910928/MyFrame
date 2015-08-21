@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vv.dao.inter.AppNewsMapper" >
+  <resultMap id="BaseResultMap" type="com.vv.base.pojo.AppNews" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="head_image" property="headImage" jdbcType="VARCHAR" />
+    <result column="head_image_width" property="headImageWidth" jdbcType="VARCHAR" />
+    <result column="head_image_height" property="headImageHeight" jdbcType="VARCHAR" />
+    <result column="rank_number" property="rankNumber" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="TINYINT" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="second_pid" property="secondPid" jdbcType="INTEGER" />
+    <result column="property_pid" property="propertyPid" jdbcType="INTEGER" />
+    <result column="from_id" property="fromId" jdbcType="INTEGER" />
+    <result column="from_name" property="fromName" jdbcType="VARCHAR" />
+    <result column="keyword1" property="keyword1" jdbcType="VARCHAR" />
+    <result column="keyword2" property="keyword2" jdbcType="VARCHAR" />
+    <result column="keyword3" property="keyword3" jdbcType="VARCHAR" />
+    <result column="readcount" property="readcount" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="modifytime" property="modifytime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.vv.base.pojo.AppNews" extends="BaseResultMap" >
+    <result column="imgs_json" property="imgsJson" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, source, content, head_image, head_image_width, head_image_height, rank_number, 
+    is_del, pid, pname, second_pid, property_pid, from_id, from_name, keyword1, keyword2, 
+    keyword3, readcount, createtime, modifytime
+  </sql>
+  <sql id="Blob_Column_List" >
+    imgs_json
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.vv.base.pojo.AppNewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vv.base.pojo.AppNewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from app_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_news
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from app_news
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vv.base.pojo.AppNewsExample" >
+    delete from app_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vv.base.pojo.AppNews" >
+    insert into app_news (id, title, source, 
+      content, head_image, head_image_width, 
+      head_image_height, rank_number, is_del, 
+      pid, pname, second_pid, 
+      property_pid, from_id, from_name, 
+      keyword1, keyword2, keyword3, 
+      readcount, createtime, modifytime, 
+      imgs_json)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{headImage,jdbcType=VARCHAR}, #{headImageWidth,jdbcType=VARCHAR}, 
+      #{headImageHeight,jdbcType=VARCHAR}, #{rankNumber,jdbcType=INTEGER}, #{isDel,jdbcType=TINYINT}, 
+      #{pid,jdbcType=INTEGER}, #{pname,jdbcType=VARCHAR}, #{secondPid,jdbcType=INTEGER}, 
+      #{propertyPid,jdbcType=INTEGER}, #{fromId,jdbcType=INTEGER}, #{fromName,jdbcType=VARCHAR}, 
+      #{keyword1,jdbcType=VARCHAR}, #{keyword2,jdbcType=VARCHAR}, #{keyword3,jdbcType=VARCHAR}, 
+      #{readcount,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{modifytime,jdbcType=TIMESTAMP}, 
+      #{imgsJson,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vv.base.pojo.AppNews" >
+    insert into app_news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="headImage != null" >
+        head_image,
+      </if>
+      <if test="headImageWidth != null" >
+        head_image_width,
+      </if>
+      <if test="headImageHeight != null" >
+        head_image_height,
+      </if>
+      <if test="rankNumber != null" >
+        rank_number,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+      <if test="secondPid != null" >
+        second_pid,
+      </if>
+      <if test="propertyPid != null" >
+        property_pid,
+      </if>
+      <if test="fromId != null" >
+        from_id,
+      </if>
+      <if test="fromName != null" >
+        from_name,
+      </if>
+      <if test="keyword1 != null" >
+        keyword1,
+      </if>
+      <if test="keyword2 != null" >
+        keyword2,
+      </if>
+      <if test="keyword3 != null" >
+        keyword3,
+      </if>
+      <if test="readcount != null" >
+        readcount,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+      <if test="imgsJson != null" >
+        imgs_json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="headImage != null" >
+        #{headImage,jdbcType=VARCHAR},
+      </if>
+      <if test="headImageWidth != null" >
+        #{headImageWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="headImageHeight != null" >
+        #{headImageHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="rankNumber != null" >
+        #{rankNumber,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="secondPid != null" >
+        #{secondPid,jdbcType=INTEGER},
+      </if>
+      <if test="propertyPid != null" >
+        #{propertyPid,jdbcType=INTEGER},
+      </if>
+      <if test="fromId != null" >
+        #{fromId,jdbcType=INTEGER},
+      </if>
+      <if test="fromName != null" >
+        #{fromName,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword1 != null" >
+        #{keyword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword2 != null" >
+        #{keyword2,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword3 != null" >
+        #{keyword3,jdbcType=VARCHAR},
+      </if>
+      <if test="readcount != null" >
+        #{readcount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgsJson != null" >
+        #{imgsJson,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.vv.base.pojo.AppNewsExample" resultType="java.lang.Integer" >
+    select count(*) from app_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update app_news
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headImage != null" >
+        head_image = #{record.headImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headImageWidth != null" >
+        head_image_width = #{record.headImageWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headImageHeight != null" >
+        head_image_height = #{record.headImageHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rankNumber != null" >
+        rank_number = #{record.rankNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDel != null" >
+        is_del = #{record.isDel,jdbcType=TINYINT},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pname != null" >
+        pname = #{record.pname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secondPid != null" >
+        second_pid = #{record.secondPid,jdbcType=INTEGER},
+      </if>
+      <if test="record.propertyPid != null" >
+        property_pid = #{record.propertyPid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromId != null" >
+        from_id = #{record.fromId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromName != null" >
+        from_name = #{record.fromName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyword1 != null" >
+        keyword1 = #{record.keyword1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyword2 != null" >
+        keyword2 = #{record.keyword2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyword3 != null" >
+        keyword3 = #{record.keyword3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.readcount != null" >
+        readcount = #{record.readcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifytime != null" >
+        modifytime = #{record.modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.imgsJson != null" >
+        imgs_json = #{record.imgsJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update app_news
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      head_image = #{record.headImage,jdbcType=VARCHAR},
+      head_image_width = #{record.headImageWidth,jdbcType=VARCHAR},
+      head_image_height = #{record.headImageHeight,jdbcType=VARCHAR},
+      rank_number = #{record.rankNumber,jdbcType=INTEGER},
+      is_del = #{record.isDel,jdbcType=TINYINT},
+      pid = #{record.pid,jdbcType=INTEGER},
+      pname = #{record.pname,jdbcType=VARCHAR},
+      second_pid = #{record.secondPid,jdbcType=INTEGER},
+      property_pid = #{record.propertyPid,jdbcType=INTEGER},
+      from_id = #{record.fromId,jdbcType=INTEGER},
+      from_name = #{record.fromName,jdbcType=VARCHAR},
+      keyword1 = #{record.keyword1,jdbcType=VARCHAR},
+      keyword2 = #{record.keyword2,jdbcType=VARCHAR},
+      keyword3 = #{record.keyword3,jdbcType=VARCHAR},
+      readcount = #{record.readcount,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      modifytime = #{record.modifytime,jdbcType=TIMESTAMP},
+      imgs_json = #{record.imgsJson,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update app_news
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      head_image = #{record.headImage,jdbcType=VARCHAR},
+      head_image_width = #{record.headImageWidth,jdbcType=VARCHAR},
+      head_image_height = #{record.headImageHeight,jdbcType=VARCHAR},
+      rank_number = #{record.rankNumber,jdbcType=INTEGER},
+      is_del = #{record.isDel,jdbcType=TINYINT},
+      pid = #{record.pid,jdbcType=INTEGER},
+      pname = #{record.pname,jdbcType=VARCHAR},
+      second_pid = #{record.secondPid,jdbcType=INTEGER},
+      property_pid = #{record.propertyPid,jdbcType=INTEGER},
+      from_id = #{record.fromId,jdbcType=INTEGER},
+      from_name = #{record.fromName,jdbcType=VARCHAR},
+      keyword1 = #{record.keyword1,jdbcType=VARCHAR},
+      keyword2 = #{record.keyword2,jdbcType=VARCHAR},
+      keyword3 = #{record.keyword3,jdbcType=VARCHAR},
+      readcount = #{record.readcount,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      modifytime = #{record.modifytime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vv.base.pojo.AppNews" >
+    update app_news
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="headImage != null" >
+        head_image = #{headImage,jdbcType=VARCHAR},
+      </if>
+      <if test="headImageWidth != null" >
+        head_image_width = #{headImageWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="headImageHeight != null" >
+        head_image_height = #{headImageHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="rankNumber != null" >
+        rank_number = #{rankNumber,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null" >
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="secondPid != null" >
+        second_pid = #{secondPid,jdbcType=INTEGER},
+      </if>
+      <if test="propertyPid != null" >
+        property_pid = #{propertyPid,jdbcType=INTEGER},
+      </if>
+      <if test="fromId != null" >
+        from_id = #{fromId,jdbcType=INTEGER},
+      </if>
+      <if test="fromName != null" >
+        from_name = #{fromName,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword1 != null" >
+        keyword1 = #{keyword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword2 != null" >
+        keyword2 = #{keyword2,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword3 != null" >
+        keyword3 = #{keyword3,jdbcType=VARCHAR},
+      </if>
+      <if test="readcount != null" >
+        readcount = #{readcount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifytime != null" >
+        modifytime = #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgsJson != null" >
+        imgs_json = #{imgsJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.vv.base.pojo.AppNews" >
+    update app_news
+    set title = #{title,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      head_image = #{headImage,jdbcType=VARCHAR},
+      head_image_width = #{headImageWidth,jdbcType=VARCHAR},
+      head_image_height = #{headImageHeight,jdbcType=VARCHAR},
+      rank_number = #{rankNumber,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=TINYINT},
+      pid = #{pid,jdbcType=INTEGER},
+      pname = #{pname,jdbcType=VARCHAR},
+      second_pid = #{secondPid,jdbcType=INTEGER},
+      property_pid = #{propertyPid,jdbcType=INTEGER},
+      from_id = #{fromId,jdbcType=INTEGER},
+      from_name = #{fromName,jdbcType=VARCHAR},
+      keyword1 = #{keyword1,jdbcType=VARCHAR},
+      keyword2 = #{keyword2,jdbcType=VARCHAR},
+      keyword3 = #{keyword3,jdbcType=VARCHAR},
+      readcount = #{readcount,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      modifytime = #{modifytime,jdbcType=TIMESTAMP},
+      imgs_json = #{imgsJson,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vv.base.pojo.AppNews" >
+    update app_news
+    set title = #{title,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      head_image = #{headImage,jdbcType=VARCHAR},
+      head_image_width = #{headImageWidth,jdbcType=VARCHAR},
+      head_image_height = #{headImageHeight,jdbcType=VARCHAR},
+      rank_number = #{rankNumber,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=TINYINT},
+      pid = #{pid,jdbcType=INTEGER},
+      pname = #{pname,jdbcType=VARCHAR},
+      second_pid = #{secondPid,jdbcType=INTEGER},
+      property_pid = #{propertyPid,jdbcType=INTEGER},
+      from_id = #{fromId,jdbcType=INTEGER},
+      from_name = #{fromName,jdbcType=VARCHAR},
+      keyword1 = #{keyword1,jdbcType=VARCHAR},
+      keyword2 = #{keyword2,jdbcType=VARCHAR},
+      keyword3 = #{keyword3,jdbcType=VARCHAR},
+      readcount = #{readcount,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      modifytime = #{modifytime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

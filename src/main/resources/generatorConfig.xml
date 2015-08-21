@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry location="C:\Users\vv\.m2\repository\mysql\mysql-connector-java\5.1.27\mysql-connector-java-5.1.27.jar" />
+	<context id="context1">
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.10.53:3306/brandranking" userId="root"
+			password="123456" />
+		<javaModelGenerator targetPackage="com.vv.base.pojo"
+			targetProject="src/main/java" />
+		<sqlMapGenerator targetPackage="com.vv.dao.mapper"
+			targetProject="src/main/java" />
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.vv.dao.inter" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+ 		<!--<table schema="brandranking" tableName="user"></table> 					-->
+ 		<!--<table schema="brandranking" tableName="brand"></table> 				-->
+ 		<!--<table schema="brandranking" tableName="shop_brand_ref"></table> 		-->
+ 		<!--<table schema="brandranking" tableName="category"></table> 				-->
+ 		<!--<table schema="brandranking" tableName="ranking_brand_ref"></table> 	-->
+ 		<!--<table schema="brandranking" tableName="brand_rec_shop_ref"></table> 	-->
+ 		<!--<table schema="brandranking" tableName="ranking_rec_shop_ref"></table> 	-->
+ 		<!--<table schema="brandranking" tableName="shop"></table> 					-->
+ 		<!--<table schema="brandranking" tableName="dealer"></table> 				-->
+ 		<table schema="brandranking" tableName="app_news"></table> 				
+	</context>
+</generatorConfiguration>
